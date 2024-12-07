@@ -1,0 +1,294 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block code %}
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="#">Offcanvas dark navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li>
+                    <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+                </li>
+            </ul>
+            <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-success" type="submit">Search</button>
+            </form>
+            </div>
+        </div>
+        </div>
+    </nav>
+
+    
+    <form action="{% url 'search' %}" method="GET">
+        <input type="text" name="q" placeholder="Search products..." value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+    <section id="cleansing-products" class="container mt-5">
+        <h2 class="text-center mb-4">Hair Cleansing Products</h2>
+
+        <!-- First Row -->
+        <div class="row">
+        {% for product in cleansing %}
+            <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-price">${{ product.price }}</p>
+                    <a href="{% url 'cart' %}" class="btn btn-primary">Add to Cart</a>
+                    <!-- Quick View Button -->
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#quickViewModal{{ product.id }}">
+                        Quick View
+                    </button>
+                </div>
+            </div>
+            </div>
+
+            <!-- Quick View Modal -->
+            <div class="modal fade" id="quickViewModal{{ product.id }}" tabindex="-1" aria-labelledby="quickViewModalLabel{{ product.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="quickViewModalLabel{{ product.id }}">{{ product.name }} - Quick View</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>{{ product.name }}</h5>
+                                    <p>{{ product.description }}</p>
+                                    <p class="card-price">${{ product.price }}</p>
+                                    <a href="{% url 'cart' %}" class="btn btn-primary">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </section>
+
+    <!-- Hair Oil Products -->
+    <section id="oil-products" class="container mt-5">
+        <h2 class="text-center mb-4">Hair Oil Products</h2>
+
+        <!-- First Row -->
+        <div class="row">
+        {% for product in oil %}
+            <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-price">${{ product.price }}</p>
+                    <a href="{% url 'cart' %}" class="btn btn-primary">Add to Cart</a>
+                    <!-- Quick View Button -->
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#quickViewModal{{ product.id }}">
+                        Quick View
+                    </button>
+                </div>
+            </div>
+            </div>
+
+            <!-- Quick View Modal -->
+            <div class="modal fade" id="quickViewModal{{ product.id }}" tabindex="-1" aria-labelledby="quickViewModalLabel{{ product.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="quickViewModalLabel{{ product.id }}">{{ product.name }} - Quick View</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>{{ product.name }}</h5>
+                                    <p>{{ product.description }}</p>
+                                    <p class="card-price">${{ product.price }}</p>
+                                    <a href="{% url 'cart' %}" class="btn btn-primary">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+        <p>No content available at the moment. Try Again Later</p>
+        {% endfor %}
+        </div>
+    </section>
+
+    <section id="oil-products" class="container mt-5">
+        <h2 class="text-center mb-4">Hair Oil Products</h2>
+
+        <!-- First Row -->
+        <div class="row">
+        {% for product in treatment %}
+            <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-price">${{ product.price }}</p>
+                    <a href="{% url 'cart' %}" class="btn btn-primary">Add to Cart</a>
+                    <!-- Quick View Button -->
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#quickViewModal{{ product.id }}">
+                        Quick View
+                    </button>
+                </div>
+            </div>
+            </div>
+
+            <!-- Quick View Modal -->
+            <div class="modal fade" id="quickViewModal{{ product.id }}" tabindex="-1" aria-labelledby="quickViewModalLabel{{ product.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="quickViewModalLabel{{ product.id }}">{{ product.name }} - Quick View</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>{{ product.name }}</h5>
+                                    <p>{{ product.description }}</p>
+                                    <p class="card-price">${{ product.price }}</p>
+                                    <a href="{% url 'cart' %}" class="btn btn-primary">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+        <p>No content available at the moment. Try Again Later</p>
+        {% endfor %}
+        </div>
+    </section>
+
+    <section id="oil-products" class="container mt-5">
+        <h2 class="text-center mb-4">Hair Oil Products</h2>
+
+        <!-- First Row -->
+        <div class="row">
+        {% for product in braiding %}
+            <div class="col-md-3 mb-4">
+            <div class="card">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-price">${{ product.price }}</p>
+                    <a href="{% url 'cart' %}" class="btn btn-primary">Add to Cart</a>
+                    <!-- Quick View Button -->
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#quickViewModal{{ product.id }}">
+                        Quick View
+                    </button>
+                </div>
+            </div>
+            </div>
+
+            <!-- Quick View Modal -->
+            <div class="modal fade" id="quickViewModal{{ product.id }}" tabindex="-1" aria-labelledby="quickViewModalLabel{{ product.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="quickViewModalLabel{{ product.id }}">{{ product.name }} - Quick View</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>{{ product.name }}</h5>
+                                    <p>{{ product.description }}</p>
+                                    <p class="card-price">${{ product.price }}</p>
+                                    <a href="{% url 'cart' %}" class="btn btn-primary">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+        <p>No content available at the moment. Try Again Later</p>
+        {% endfor %}
+        </div>
+    </section>
+
+    <h2>Product Catalog</h2>
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description|slice:":100" }}...</p>
+                        <p class="card-text">Price: ${{ product.price }}</p>
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">View Details</a>
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    
+
+    <--form -->
+    {% comment %} <form method="get" action="{% url 'product_page' %}">
+        <select name="category" class="form-select" onchange="this.form.submit()">
+            <option value="">All Categories</option>
+            <option value="Cleansing">Cleansing</option>
+            <option value="Oil">Oil</option>
+            <option value="Treatment">Treatment</option>
+        </select>
+    </form> {% endcomment %}
+
+
+        
+  
+
+{% endblock %}
